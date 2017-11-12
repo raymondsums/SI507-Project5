@@ -1,1 +1,10 @@
 Put your Project 5 brief explanation, as directed, here.
+
+I am accessing Tumblr's API to search and gather the following for a blog called indieteen.tumblr.com:
+- the code will extract information such as the blog's name, number of updates, number of blog posts, number of likes and the url of the blog.
+- I'll then write 1 CSV file
+- Data in the CSV file: 5 columns -- blog's name, number updates, number blog posts, number likes, url
+- 
+
+I relied on the Tumblr API Documentation to achieve these steps
+https://www.tumblr.com/docs/en/api/v2#auth
