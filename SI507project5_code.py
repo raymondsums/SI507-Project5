@@ -222,5 +222,5 @@ with open('tumblr_text.csv','w') as outfile_text:
 	writer = csv.writer(outfile_text)
 	outfile_text.write('"id","date","timestamp","title","tags","content"\n')
 	for i in range(len(text_dict)):
-		outfile_text.write('"{}","{}","{}","{}","{}","{}"\n'.format(text_id_list[i],text_date_list[i],text_timestamp_list[i],text_title_list[i],text_tags_list[i],text_content_list[i])
+		writer.writerow([text_id_list[i],text_date_list[i],text_timestamp_list[i],text_title_list[i],text_tags_list[i],text_content_list[i]])
 outfile_text.close()
