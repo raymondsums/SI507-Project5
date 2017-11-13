@@ -169,8 +169,8 @@ if __name__ == "__main__":
 		print("You need to fill in this API's specific OAuth2 URLs in this file.")
 		exit()
 
-	tumblr_photo_search_baseurl = "https://api.tumblr.com/v2/blog/newsweek.tumblr.com/posts/photo"
-	tumblr_text_search_baseurl = "https://api.tumblr.com/v2/blog/newsweek.tumblr.com/posts/text"
+tumblr_photo_search_baseurl = "https://api.tumblr.com/v2/blog/newsweek.tumblr.com/posts/photo"
+tumblr_text_search_baseurl = "https://api.tumblr.com/v2/blog/newsweek.tumblr.com/posts/text"
 
 tumblr_photo_result = get_data_from_api(tumblr_photo_search_baseurl,"api_key",CLIENT_KEY)
 photo_dict = tumblr_photo_result
@@ -180,10 +180,14 @@ photo_tags_list = []
 photo_url_list = []
 photo_width_list = []
 photo_height_list = []
+photo_caption_list = []
+photo_note_count = []
 for i in photo_dict['response']['posts']:
 	photo_id_list.append(i['id'])
 	photo_timestamp_list.append(i['timestamp'])
 	photo_tags_list.append(i['tags'])
+	photo_caption_list.append(i['caption'])
+	photo_note_count.append(i['note_count'])
 	for j in i['photos']:
 		photo_url_list.append(j['original_size']['url'])
 		photo_width_list.append(j['original_size']['width'])
@@ -200,27 +204,31 @@ text_timestamp_list = []
 text_title_list = []
 text_content_list = []
 text_tags_list = []
+text_note_count = []
 for i in text_dict:
 	text_id_list.append(i['id'])
 	text_date_list.append(i['date'])
 	text_timestamp_list.append(i['timestamp'])
 	text_title_list.append(i['title'])
 	text_tags_list.append(i['tags'])
+	text_note_count.append(i['note_count'])
 	for j in i['trail']:
 		text_content_list.append((j['content']).strip('/n'))
 
 ## Make sure to run your code and write CSV files by the end of the program.
 
 outfile_photo = open("tumblr_photo.csv","w")
-outfile_photo.write('"id","timestamp","tags","url","dimensions"\n')
-for i in range(len(photo_dict['response']['posts'])):
-	outfile_photo.write('"{}","{}","{}","{}","{}"\n'.format(photo_id_list[i],photo_timestamp_list[i],photo_tags_list[i],photo_url_list[i],photo_dimensions_list[i]))
+with open('tumblr_photo.csv',"w") as outfile_photo:
+	writer = csv.writer(outfile_photo)
+	outfile_photo.write('"id","timestamp","captions","tags","url","dimensions","note count"\n')
+	for i in range(len(photo_dict['response']['posts'])):
+		writer.writerow([photo_id_list[i],photo_timestamp_list[i],photo_caption_list[i],photo_tags_list[i],photo_url_list[i],photo_dimensions_list[i],photo_note_count[i]])
 outfile_photo.close()
 
 outfile_text = open("tumblr_text.csv","w")
 with open('tumblr_text.csv','w') as outfile_text:
 	writer = csv.writer(outfile_text)
-	outfile_text.write('"id","date","timestamp","title","tags","content"\n')
+	outfile_text.write('"id","date","timestamp","title","tags","content","note count"\n')
 	for i in range(len(text_dict)):
-		writer.writerow([text_id_list[i],text_date_list[i],text_timestamp_list[i],text_title_list[i],text_tags_list[i],text_content_list[i]])
+		writer.writerow([text_id_list[i],text_date_list[i],text_timestamp_list[i],text_title_list[i],text_tags_list[i],text_content_list[i],text_note_count[i]])
 outfile_text.close()

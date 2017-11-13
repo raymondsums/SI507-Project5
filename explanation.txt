@@ -1,10 +1,12 @@
 Put your Project 5 brief explanation, as directed, here.
 
-I am accessing Tumblr's API to search and gather the following for a blog called indieteen.tumblr.com:
-- the code will extract information such as the blog's name, number of updates, number of blog posts, number of likes and the url of the blog.
-- I'll then write 1 CSV file
-- Data in the CSV file: 5 columns -- blog's name, number updates, number blog posts, number likes, url
-- 
+I am accessing Tumblr's API to search and gather data from the Newsweek's Tumblr blog.
+- the code will extract information by searching for photo and text posts.
+- for the photo posts, the code will search for 20 posts for these information : (id, timestamp, tags, url, dimensions (width x height), captions and note count.)
+- for the text posts, the code will search for 20 posts for these information : (id, date posted, timestamp, title, content, tags and note count.)
+- I'll then write 2 CSV file
+- Data in the first CSV file (tumblr_photo.csv) : 7 columns -- id, timestamp, captions, tags, url, dimensions, note count 
+- Data in the second CSV file (tumblr_text.csv) : 7 columns -- id, date, timestamp, tags, content, note count
 
 I relied on the Tumblr API Documentation to achieve these steps
 https://www.tumblr.com/docs/en/api/v2#auth
